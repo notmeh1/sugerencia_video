@@ -10,36 +10,43 @@ class Multimedia {
     setInicio() { 
     }
 }
-
 class Reproductor extends Multimedia {
     constructor(url, id) {
         super(url)
-        this.id = id
+        this._id = id
     }
     playMultimedia() {
-        (function () {
-            videoMusica.setAttribute("src", this.url)
+        (() => {
+            const iframe = document.querySelector(this._id)
+            iframe.setAttribute("src", this.url)
         })()
     }
     setInicio(time) {
-        this.url += `?start=${time}`
+        this._url += `?start=${time}`
     }
 }
-const clickMusica = document.querySelector("#headingMusica")
-const clickPelicula = document.querySelector("#headingPeliculas")
-const clickSerie = document.querySelector("#headingSeries")
-const idMusica = document.querySelector("#musica")
-const idPelicula = document.querySelector("#peliculas")
-const idSerie = document.querySelector("#series")
+const headingMusica = document.querySelector("#headingMusica")
+const headingPelicula = document.querySelector("#headingPeliculas")
+const headingSerie = document.querySelector("#headingSeries")
 
-clickMusica.addEventListener("click", () => {
-    
+const playerMusica = new Reproductor("https://www.youtube.com/embed/DZNv74aIGkU", "#musica")
+headingMusica.addEventListener("click", () => {
+    playerMusica.playMultimedia()
 } )
-const musica = new Reproductor("https://www.youtube.com/embed/UqFwG08pQA4", idMusica)
-const pelicula = new Reproductor()
-const serie = new Reproductor()
+playerMusica.setInicio(15)
 
+const playerPelicula = new Reproductor("https://www.youtube.com/embed/-k-GZYEwK14", "#peliculas")
+headingPelicula.addEventListener("click", () => {
+    playerPelicula.playMultimedia()
+})
+playerPelicula.setInicio(239)
 
-// musica src="https://www.youtube.com/embed/UqFwG08pQA4"
-// pelicula src="https://www.youtube.com/embed/tofYi_SrZQ8"
+const playerSerie = new Reproductor("https://www.youtube.com/embed/tofYi_SrZQ8", "#series")
+headingSerie.addEventListener("click", () => {
+    playerSerie.playMultimedia()
+})
+playerSerie.setInicio()
+
+// musica src="https://www.youtube.com/embed/DZNv74aIGkU"
+// pelicula src="https://www.youtube.com/embed/-k-GZYEwK14"
 // serie src="https://www.youtube.com/embed/tofYi_SrZQ8"
